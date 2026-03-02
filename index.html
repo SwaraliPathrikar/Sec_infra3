@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MRPL Security Infrastructure Digital Activation</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+    font-family:"Segoe UI",Arial,sans-serif;
+    background:radial-gradient(circle at top,#07121d,#02060a 60%);
+    color:#00e6ff;
+    overflow:hidden;
+    height:100vh;
+}
+
+/* ===== BACKGROUND ===== */
+.glow{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(80px);
+    opacity:.12;
+    animation:float 18s infinite ease-in-out;
+}
+.glow1{width:600px;height:600px;background:#00e6ff;top:-250px;left:-200px;}
+.glow2{width:400px;height:400px;background:#00ff99;bottom:-150px;right:-150px;}
+
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(40px);}
+}
+
+.grid{
+position:absolute;
+width:100%;
+height:100%;
+background-image:
+linear-gradient(rgba(0,230,255,.07) 1px, transparent 1px),
+linear-gradient(90deg, rgba(0,230,255,.07) 1px, transparent 1px);
+background-size:60px 60px;
+animation:moveGrid 25s linear infinite;
+}
+@keyframes moveGrid{
+from{transform:translateY(0);}
+to{transform:translateY(60px);}
+}
+
+/* ===== HEADER ===== */
+.top-logo{
+position:fixed;
+top:20px;
+left:30px;
+z-index:100;   
+}
+.top-logo img{width:90px;}
+
+.logo{
+position:absolute;
+top:30px;
+left:150px;
+font-size:18px;
+font-weight:600;
+letter-spacing:2px;
+color:#00ffcc;
+}
+
+/* ===== DIGNITARY RIGHT CORNER ===== */
+.dignitary-section{
+position:fixed;
+top:30px;
+right:40px;
+display:flex;
+align-items:center;
+gap:15px;
+background:rgba(92,143,43,0.2);
+padding:15px 25px;
+border-radius:12px;
+border:1px solid #a4d65e;
+z-index:1000;
+}
+.dignitary-section img{
+width:80px;
+height:100px;
+object-fit:cover;
+border-radius:8px;
+border:2px solid #a4d65e;
+}
+.dignitary-info{
+color:white;
+text-align:left;
+font-size:14px;
+}
+
+.container{
+position:relative;
+z-index:5;
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+transform: translateY(40px);
+}
+
+.title{
+font-size:38px;
+font-weight:700;
+background:linear-gradient(45deg,#00e6ff,#00ff99);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+margin-bottom:10px;
+}
+
+.subtitle{
+font-size:15px;
+opacity:.8;
+margin-bottom:50px;
+}
+
+.modules{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+max-width:1100px;
+margin-bottom:40px;
+}
+.module{
+padding:20px;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(0,255,200,.3);
+border-radius:12px;
+backdrop-filter:blur(15px);
+transition:.4s;
+}
+.module:hover{
+transform:translateY(-6px);
+box-shadow:0 0 25px rgba(0,255,200,.4);
+}
+
+/* ===== QR SECTION ===== */
+.qr-section{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:20px;
+cursor:pointer;
+}
+
+.qr-wrapper{
+position:relative;
+width:220px;
+height:220px;
+padding:10px;
+background:rgba(0,255,200,.08);
+border:2px solid #00e6ff;
+border-radius:12px;
+box-shadow:0 0 25px rgba(0,255,200,.3);
+}
+
+.qr-image{
+width:100%;
+height:100%;
+}
+
+.scan-line{
+position:absolute;
+left:0;
+width:100%;
+height:4px;
+background:linear-gradient(to right, transparent, #00ffcc, transparent);
+box-shadow:0 0 20px #00ffcc;
+animation:scanMove 2s linear infinite;
+}
+
+@keyframes scanMove{
+0%{top:0;}
+100%{top:210px;}
+}
+
+.qr-text{
+font-size:16px;
+opacity:.8;
+}
+
+.footer{
+position:absolute;
+bottom:25px;
+font-size:14px;
+opacity:.6;
+}
+
+/* ===== CURTAIN ===== */
+#curtain-container{
+position:fixed;
+inset:0;
+display:none;
+z-index:3000;
+}
+
+#curtain-left,#curtain-right{
+position:absolute;
+top:0;
+width:50vw;
+height:100vh;
+background:url('Red_Curtain.png') center/cover no-repeat;
+}
+
+#curtain-left{left:0;}
+#curtain-right{right:0;}
+
+.boot-screen{
+font-family:"Courier New",monospace;
+text-align:left;
+font-size:16px;
+width:600px;
+line-height:24px;
+color:#00ffcc;
+}
+</style>
+</head>
+
+<body>
+
+<div class="top-logo">
+<img src="MRPL_official_Logo.png">
+</div>
+
+<div class="logo">
+Mangalore Refinery & Petrochemicals Limited
+</div>
+
+<div class="dignitary-section">
+<img src="Shri Mundkur Shyamprasad Kamath.png">
+<div class="dignitary-info">
+<div style="font-weight:700;">Hon'ble [Full Name]</div>
+<div>[Designation]</div>
+</div>
+</div>
+
+<div class="glow glow1"></div>
+<div class="glow glow2"></div>
+<div class="grid"></div>
+
+<div id="curtain-container">
+<div id="curtain-left"></div>
+<div id="curtain-right"></div>
+</div>
+
+<audio id="clapAudio">
+<source src="vvqne-applause-383901.mp3">
+</audio>
+
+<audio id="finalImpact">
+<source src="final-impact.mp3">
+</audio>
+
+<div class="container" id="mainContent">
+
+<div class="title">Digital Infrastructure Activation</div>
+<div class="subtitle">Integrated Smart Refinery Security Ecosystem</div>
+
+<div class="modules">
+<div class="module">AI Video Surveillance</div>
+<div class="module">ANPR Vehicle Intelligence</div>
+<div class="module">Central Command & Control</div>
+<div class="module">Access Governance System</div>
+<div class="module">Perimeter Intrusion Detection</div>
+</div>
+
+<div class="qr-section" onclick="launchSystem()">
+<div class="qr-wrapper">
+<img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=MRPL_SECURITY_ACTIVATION" class="qr-image">
+<div class="scan-line"></div>
+</div>
+<div class="qr-text">
+Scan QR to Launch Secure Activation
+</div>
+</div>
+
+</div>
+
+<div class="footer">
+Official Digital Launch Ceremony • MRPL Security Transformation
+</div>
+
+<script>
+
+const clap = document.getElementById("clapAudio");
+const finalImpact = document.getElementById("finalImpact");
+
+function launchSystem(){
+
+let container = document.getElementById("mainContent");
+let dignitary = document.querySelector(".dignitary-section");
+
+container.innerHTML = "<div style='font-size:80px;color:#ff2fd3;' id='preTimer'>5</div>";
+
+let count = 5;
+
+let preInterval = setInterval(()=>{
+count--;
+
+if(count > 0){
+document.getElementById("preTimer").innerText = count;
+}
+else{
+clearInterval(preInterval);
+
+dignitary.style.transition = "opacity 0.6s ease";
+dignitary.style.opacity = "0";
+
+setTimeout(()=>{
+dignitary.style.display = "none";
+openCurtain();
+},600);
+
+}
+
+},1000);
+
+}
+
+function openCurtain(){
+
+document.getElementById("curtain-container").style.display="block";
+
+clap.play();
+
+let left=document.getElementById("curtain-left");
+let right=document.getElementById("curtain-right");
+
+left.style.transition="left 5s ease";
+right.style.transition="right 5s ease";
+
+setTimeout(()=>{
+left.style.left="-50vw";
+right.style.right="-50vw";
+},100);
+
+document.getElementById("mainContent").innerHTML=
+`<div class="boot-screen" id="bootLog"></div>`;
+
+let logs=[
+"Initializing Core Security Kernel...",
+"Connecting AI Surveillance Grid...",
+"Establishing Command Center Network...",
+"Synchronizing ANPR Systems...",
+"Validating Access Governance Protocol...",
+"Enabling Perimeter Monitoring...",
+"All Security Modules Verified.",
+"System Integrity Check: PASSED.",
+"Launching Integrated Security Framework..."
+];
+
+let i=0;
+let logContainer=document.getElementById("bootLog");
+
+let interval=setInterval(()=>{
+if(i<logs.length){
+logContainer.innerHTML+=logs[i]+"<br>";
+i++;
+}else clearInterval(interval);
+},600);
+
+setTimeout(()=>{
+clap.pause();
+finalImpact.play();
+
+setTimeout(()=>{
+    activateFinal();
+},2000);
+
+},6000);
+}
+
+function activateFinal(){
+
+speechSynthesis.cancel();
+
+document.getElementById("mainContent").innerHTML=`
+<div style="margin-top:100px;">
+<h1 style="font-size:48px;">
+SECURITY INFRASTRUCTURE SUCCESSFULLY ACTIVATED
+</h1>
+</div>
+`;
+
+setTimeout(() => {
+
+let message = new SpeechSynthesisUtterance(
+"Security Infrastructure Successfully Activated"
+);
+
+message.rate = 0.85;
+message.pitch = 1;
+message.volume = 1;
+
+speechSynthesis.speak(message);
+
+}, 800);
+
+}
+
+</script>
+
+</body>
+</html>
