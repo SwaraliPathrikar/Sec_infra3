@@ -366,11 +366,11 @@ color:#00ffcc;
 <div id="curtain-right"></div>
 </div>
 
-<audio id="clapAudio" preload="auto">
+<audio id="clapAudio" preload="auto" playsinline>
 <source src="vvqne-applause-383901.mp3" type="audio/mpeg">
 </audio>
 
-<audio id="finalImpact" preload="auto">
+<audio id="finalImpact" preload="auto" playsinline>
 <source src="final-impact.mp3" type="audio/mpeg">
 </audio>
 
@@ -497,6 +497,10 @@ function launchSystem(){
 let container = document.getElementById("mainContent");
 let dignitary = document.querySelector(".dignitary-section");
 
+// Initialize audio for Safari
+clap.load();
+finalImpact.load();
+
 container.innerHTML="<div style='font-size:80px;color:#ff2fd3;display:flex;justify-content:center;align-items:center;min-height:100vh;' id='preTimer'>5</div>";
 
 let count=5;
@@ -533,6 +537,8 @@ document.getElementById("curtain-container").style.display="block";
 // Try to play clap audio with error handling for Safari
 clap.play().catch(function(error) {
     console.log("Audio play failed:", error);
+    // Retry once for Safari
+    setTimeout(function(){ clap.play(); }, 100);
 });
 
 let left=document.getElementById("curtain-left");
