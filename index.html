@@ -619,18 +619,19 @@ let interval=setInterval(()=>{
 if(i<logs.length){
 logContainer.innerHTML+=logs[i]+"<br>";
 i++;
-}else clearInterval(interval);
-},600);
-
+}else{
+clearInterval(interval);
+// Immediately trigger final page after last log
 setTimeout(()=>{
 clap.pause();
 finalImpact.play();
 
 setTimeout(()=>{
 activateFinal();
-},2000);
-
-},9000);
+},1000);
+},500);
+}
+},600);
 }
 
 function activateFinal(){
