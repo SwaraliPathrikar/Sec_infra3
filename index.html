@@ -366,12 +366,12 @@ color:#00ffcc;
 <div id="curtain-right"></div>
 </div>
 
-<audio id="clapAudio">
-<source src="vvqne-applause-383901.mp3">
+<audio id="clapAudio" preload="auto">
+<source src="vvqne-applause-383901.mp3" type="audio/mpeg">
 </audio>
 
-<audio id="finalImpact">
-<source src="final-impact.mp3">
+<audio id="finalImpact" preload="auto">
+<source src="final-impact.mp3" type="audio/mpeg">
 </audio>
 
 <div class="container" id="mainContent">
@@ -421,8 +421,10 @@ function updateLiveDate(){
 const dateElement = document.getElementById("liveDate");
 if(dateElement){
 const now = new Date();
-const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-dateElement.textContent = now.toLocaleDateString('en-US', options);
+const day = String(now.getDate()).padStart(2, '0');
+const month = String(now.getMonth() + 1).padStart(2, '0');
+const year = now.getFullYear();
+dateElement.textContent = `${day}/${month}/${year}`;
 }
 }
 updateLiveDate();
@@ -527,7 +529,10 @@ function openCurtain(){
 
 document.getElementById("curtain-container").style.display="block";
 
-clap.play();
+// Try to play clap audio with error handling for Safari
+clap.play().catch(function(error) {
+    console.log("Audio play failed:", error);
+});
 
 let left=document.getElementById("curtain-left");
 let right=document.getElementById("curtain-right");
