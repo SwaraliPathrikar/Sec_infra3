@@ -23,6 +23,7 @@ body{
     opacity:.12;
     animation:float 18s infinite ease-in-out;
 }
+
 .glow1{width:600px;height:600px;background:#00e6ff;top:-250px;left:-200px;}
 .glow2{width:400px;height:400px;background:#00ff99;bottom:-150px;right:-150px;}
 
@@ -579,27 +580,36 @@ function showImage(){
 document.getElementById("mainContent").innerHTML=
 
 `
-<div style="display:flex;justify-content:center;align-items:center;height:100vh;width:1100px;margin:0 auto;padding:70px 0 120px 0;">
+<div id="imageContainer" style="display:flex;justify-content:center;align-items:center;height:100vh;width:1100px;margin:0 auto;padding:70px 0 120px 0;">
 <img id="mrplImage" src="MRPL_Gate.jpg" style="width:100%;height:100%;object-fit:cover;border-radius:12px;box-shadow:0 0 50px rgba(0,255,200,.5);opacity:0;animation:fadeIn 1s ease-in forwards;">
 </div>`;
 
 setTimeout(()=>{
 let img = document.getElementById("mrplImage");
+console.log("Image element:", img);
 if(img){
-img.style.animation = "fadeOut 0.8s ease-out forwards";
+console.log("Setting opacity to 0.2");
+img.style.animation = "none"; // Stop the fadeIn animation
+img.style.transition = "opacity 1s ease";
+img.style.opacity = "0.2";
+console.log("Image opacity after setting:", img.style.opacity);
+} else {
+console.log("Image element not found!");
 }
 setTimeout(()=>{
 showBootLogs();
-},800);
+},1000);
 },5000);
 }
 
 function showBootLogs(){
 
-document.getElementById("mainContent").innerHTML=
-`<div style="display:flex;justify-content:center;align-items:center;min-height:80vh;">
-<div class="boot-screen" id="bootLog"></div>
-</div>`;
+// Add boot logs over the existing image
+let mainContent = document.getElementById("mainContent");
+let bootLogDiv = document.createElement("div");
+bootLogDiv.style.cssText = "position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:10;";
+bootLogDiv.innerHTML = '<div class="boot-screen" id="bootLog" style="color:#ffffff;font-size:18px;text-shadow:2px 2px 4px rgba(0,0,0,0.8);"></div>';
+mainContent.appendChild(bootLogDiv);
 
 let logs=[
 "Initializing Infrastructure Protection Systems...",
